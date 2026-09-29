@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minna no Nihongo - Bài 3 đến Bài 6</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --border-color: #e9ecef;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 8px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            border: none;
+            background-color: #e0e0e0;
+            color: #333;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.active, .nav-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .sub-nav {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .sub-btn {
+            padding: 6px 16px;
+            border: 1px solid var(--secondary-color);
+            background: transparent;
+            color: var(--secondary-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .sub-btn.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .content-section {
+            display: none;
+            background-color: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: #f1f3f5;
+            color: var(--primary-color);
+        }
+
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .grammar-block {
+            margin-bottom: 25px;
+            border-left: 4px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+
+        .grammar-title {
+            font-size: 1.15rem;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .example-list {
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .exercise-card {
+            background-color: #fdfdfd;
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+        }
+
+        .exercise-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .japanese {
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            th, td { padding: 8px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Minna no Nihongo (第3課 - 第6課)</h1>
+        <p>Tài liệu tổng hợp Từ vựng, Ngữ pháp & Bài tập luyện tập</p>
+    </header>
+
+    <nav id="lesson-nav">
+        <button class="nav-btn active" onclick="switchLesson(3)">Bài 3 (第3課)</button>
+        <button class="nav-btn" onclick="switchLesson(4)">Bài 4 (第4課)</button>
+        <button class="nav-btn" onclick="switchLesson(5)">Bài 5 (第5課)</button>
+        <button class="nav-btn" onclick="switchLesson(6)">Bài 6 (第6課)</button>
+    </nav>
+
+    <div class="sub-nav">
+        <button class="sub-btn active" onclick="switchTab('vocab')">Từ vựng</button>
+        <button class="sub-btn" onclick="switchTab('grammar')">Ngữ pháp</button>
+        <button class="sub-btn" onclick="switchTab('exercise')">Bài tập (練習)</button>
+    </div>
+
+    <main id="main-content">
+        <!-- Nội dung sẽ được nạp động qua JavaScript -->
+    </main>
+</div>
+
+<script>
+const data = {
+    3: {
+        vocab: [
+            { hiragana: "ここ", kanji: "", meaning: "Ở đây, chỗ này" },
+            { hiragana: "そこ", kanji: "", meaning: "Ở đó, chỗ đó" },
+            { hiragana: "あそこ", kanji: "", meaning: "Ở kia, chỗ kia" },
+            { hiragana: "どこ", kanji: "", meaning: "Ở đâu, chỗ nào" },
+            { hiragana: "こちら", kanji: "", meaning: "Phía này, chỗ này (lịch sự của ここ)" },
+            { hiragana: "そちら", kanji: "", meaning: "Phía đó, chỗ đó (lịch sự của そこ)" },
+            { hiragana: "あちら", kanji: "", meaning: "Phía kia, chỗ kia (lịch sự của あそこ)" },
+            { hiragana: "どちら", kanji: "", meaning: "Phía nào, đâu (lịch sự của どこ)" },
+            { hiragana: "きょうしつ", kanji: "教室", meaning: "Lớp học, phòng học" },
+            { hiragana: "しょくどう", kanji: "食堂", meaning: "Nhà ăn, nhà hàng" },
+            { hiragana: "じむしょ", kanji: "事務所", meaning: "Văn phòng" },
+            { hiragana: "かいぎしつ", kanji: "会議室", meaning: "Phòng họp" },
+            { hiragana: "うけつけ", kanji: "受付", meaning: "Bàn tiếp tân" },
+            { hiragana: "ロビー", kanji: "", meaning: "Hành lang, sảnh" },
+            { hiragana: "へや", kanji: "部屋", meaning: "Căn phòng" },
+            { hiragana: "トイレ（おてあらい）", kanji: "（お手洗い）", meaning: "Nhà vệ sinh" },
+            { hiragana: "かいだん", kanji: "階段", meaning: "Cầu thang bộ" },
+            { hiragana: "エレベーター", kanji: "", meaning: "Thang máy" },
+            { hiragana: "エスカレーター", kanji: "", meaning: "Thang cuốn" },
+            { hiragana: "くに", kanji: "国", meaning: "Đất nước" },
+            { hiragana: "かいしゃ", kanji: "会社", meaning: "Công ty" },
+            { hiragana: "うち", kanji: "", meaning: "Nhà" },
+            { hiragana: "でんわ", kanji: "電話", meaning: "Điện thoại" },
+            { hiragana: "くつ", kanji: "靴", meaning: "Giày" },
+            { hiragana: "ネクタイ", kanji: "", meaning: "Cà vạt" },
+            { hiragana: "ワイン", kanji: "", meaning: "Rượu vang" },
+            { hiragana: "うりば", kanji: "売り場", meaning: "Quầy bán hàng" },
+            { hiragana: "ちか", kanji: "地下", meaning: "Tầng hầm" },
+            { hiragana: "－かい（－がい）", kanji: "－階", meaning: "Tầng thứ -" },
+            { hiragana: "なんがい", kanji: "何階", meaning: "Tầng mấy" },
+            { hiragana: "－えん", kanji: "－円", meaning: "Yên (tiền Nhật)" },
+            { hiragana: "いくら", kanji: "", meaning: "Bao nhiêu tiền" }
+        ],
+        grammar: [
+            {
+                title: "1. N1 は N2 (Địa điểm) です",
+                desc: "Nói về vị trí của một địa điểm, đối tượng.",
+                examples: [
+                    "ここは 教室(きょうしつ)です。 (Ở đây là phòng học.)",
+                    "トイレは あそこです。 (Nhà vệ sinh ở kia.)"
+                ]
+            },
+            {
+                title: "2. N1 は どこ / どちら ですか",
+                desc: "Hỏi vị trí của địa điểm hoặc hướng đi (どちら lịch sự hơn どこ).",
+                examples: [
+                    "お手洗い(おてあらい)は どこですか。 (Nhà vệ sinh ở đâu?)",
+                    "事務所(じむしょ)は どちらですか。 (Văn phòng ở hướng nào?)"
+                ]
+            },
+            {
+                title: "3. N1 の N2 (Xuất xứ / Sản xuất)",
+                desc: "Diễn tả N2 do quốc gia/công ty N1 sản xuất.",
+                examples: [
+                    "これは 日本(にほん)の 車(くるま)です。 (Đây là xe hơi của Nhật Bản.)"
+                ]
+            },
+            {
+                title: "4. N は いくらですか",
+                desc: "Hỏi giá tiền của một vật phẩm.",
+                examples: [
+                    "この 時計(とけい)は いくらですか。 (Cái đồng hồ này giá bao nhiêu?)",
+                    "18,600円(えん)です。 (Giá 18,600 Yên.)"
+                ]
+            }
+        ],
+        exercise: [
+            { section: "練習B - 1", content: "例: ここは 食堂(しょくどう)です。<br>1) ここは 教室(きょうしつ)です。<br>2) そこは 受付(うけつけ)です。<br>3) あそこは 事務所(じむしょ)です。" },
+            { section: "練習B - 2", content: "例: トイレは どこですか。･･･あそこです。<br>1) 会議室(かいぎしつ)は どこですか。･･･あそこです。<br>2) 自動販売機(じどうはんばいき)は どこですか。･･･そこです。" },
+            { section: "練習C - 1", content: "A: すみません。トイレは どこですか。<br>B: あそこです。<br>A: どうも。" }
+        ]
+    },
+    4: {
+        vocab: [
+            { hiragana: "おきます", kanji: "起きます", meaning: "Thức dậy" },
+            { hiragana: "ねます", kanji: "寝ます", meaning: "Ngủ" },
+            { hiragana: "はたらきます", kanji: "働きます", meaning: "Làm việc" },
+            { hiragana: "やすみます", kanji: "休みます", meaning: "Nghỉ ngơi" },
+            { hiragana: "べんきょうします", kanji: "勉強します", meaning: "Học tập" },
+            { hiragana: "おわります", kanji: "終わります", meaning: "Kết thúc" },
+            { hiragana: "ぎんこう", kanji: "銀行", meaning: "Ngân hàng" },
+            { hiragana: "ゆうびんきょく", kanji: "郵便局", meaning: "Bưu điện" },
+            { hiragana: "としょかん", kanji: "図書館", meaning: "Thư viện" },
+            { hiragana: "びじゅつかん", kanji: "美術館", meaning: "Bảo tàng mỹ thuật" },
+            { hiragana: "いま", kanji: "今", meaning: "Bây giờ" },
+            { hiragana: "－じ", kanji: "－時", meaning: "- Giờ" },
+            { hiragana: "－ふん（－ぷん）", kanji: "－分", meaning: "- Phút" },
+            { hiragana: "はん", kanji: "半", meaning: "Rưỡi, nửa (30 phút)" },
+            { hiragana: "なんじ", kanji: "何時", meaning: "Mấy giờ" },
+            { hiragana: "なんぷん", kanji: "何分", meaning: "Mấy phút" },
+            { hiragana: "ごぜん", kanji: "午前", meaning: "Buổi sáng (AM)" },
+            { hiragana: "ごご", kanji: "午後", meaning: "Buổi chiều (PM)" },
+            { hiragana: "あさ / ひる / ばん", kanji: "朝 / 昼 / 晩", meaning: "Sáng / Trưa / Tối" },
+            { hiragana: "きのう / きょう / あした", kanji: "", meaning: "Hôm qua / Hôm nay / Ngày mai" },
+            { hiragana: "まいあさ / まいばん / まいにち", kanji: "毎朝 / 毎晩 / 毎日", meaning: "Mỗi sáng / Mỗi tối / Mỗi ngày" },
+            { hiragana: "げつ・か・すい・もく・きん・ど・にちようび", kanji: "月・火・水・木・金・土・日曜日", meaning: "Thứ 2 đến Chủ nhật" }
+        ],
+        grammar: [
+            {
+                title: "1. 今 －時 －分です",
+                desc: "Nói về thời gian hiện tại.",
+                examples: ["今(いま) 4時(じ) 5分(ふん)です。 (Bây giờ là 4 giờ 5 phút.)"]
+            },
+            {
+                title: "2. Động từ chia theo thời/thể",
+                desc: "Khẳng định: ～ます | Phủ định: ～ません | Quá khứ: ～ました | Quá khứ phủ định: ～ませんでした",
+                examples: [
+                    "起き(おき)ます (Thức dậy)",
+                    "起き(おき)ません (Không thức dậy)",
+                    "起き(おき)ました (Đã thức dậy)",
+                    "起き(おき)ませんでした (Đã không thức dậy)"
+                ]
+            },
+            {
+                title: "3. N (Thời gian) に Động từ",
+                desc: "Hành động diễn ra vào một mốc thời gian xác định (có số).",
+                examples: ["毎朝(まいあさ) 6時(じ)に 起(お)きます。 (Mỗi sáng tôi dậy lúc 6 giờ.)"]
+            },
+            {
+                title: "4. N1 から N2 まで",
+                desc: "Từ N1 đến N2 (Chỉ phạm vi thời gian hoặc địa điểm).",
+                examples: ["9時(じ)から 5時(じ)まで 働(はたら)きます。 (Tôi làm việc từ 9 giờ đến 5 giờ.)"]
+            }
+        ],
+        exercise: [
+            { section: "練習B - 1", content: "例: 3時(じ)です。<br>1) 9時(じ)です。<br>2) 4時(じ)半(はん)です。<br>3) 12時(じ)15分(ふん)です。" },
+            { section: "練習B - 5", content: "例: 毎朝(まいあさ) 何時(なんじ)に 起(お)きますか。･･･7時(じ)に 起きます。<br>1) 毎晩(まいばん) 何時に 寝(ね)ますか。･･･11時に 寝ます。" }
+        ]
+    },
+    5: {
+        vocab: [
+            { hiragana: "いきます", kanji: "行きます", meaning: "Đi" },
+            { hiragana: "きます", kanji: "来ます", meaning: "Đến" },
+            { hiragana: "かえります", kanji: "帰ります", meaning: "Trở về" },
+            { hiragana: "がっこう", kanji: "学校", meaning: "Trường học" },
+            { hiragana: "スーパー", kanji: "", meaning: "Siêu thị" },
+            { hiragana: "えき", kanji: "駅", meaning: "Nhà ga" },
+            { hiragana: "ひこうき", kanji: "飛行機", meaning: "Máy bay" },
+            { hiragana: "でんしゃ", kanji: "電車", meaning: "Tàu điện" },
+            { hiragana: "ちかてつ", kanji: "地下鉄", meaning: "Tàu điện ngầm" },
+            { hiragana: "しんかんせん", kanji: "新幹線", meaning: "Tàu siêu tốc Shinkansen" },
+            { hiragana: "じてんしゃ", kanji: "自転車", meaning: "Xe đạp" },
+            { hiragana: "あるいて", kanji: "歩いて", meaning: "Đi bộ" },
+            { hiragana: "ともだち", kanji: "友達", meaning: "Bạn bè" },
+            { hiragana: "かれ / かのじょ", kanji: "彼 / 彼女", meaning: "Anh ấy (bạn trai) / Cô ấy (bạn gái)" },
+            { hiragana: "かぞく", kanji: "家族", meaning: "Gia đình" },
+            { hiragana: "ひとり で", kanji: "一人で", meaning: "Một mình" },
+            { hiragana: "せんしゅう / こんしゅう / らいしゅう", kanji: "先週 / 今週 / 来週", meaning: "Tuần trước / Tuần này / Tuần tới" },
+            { hiragana: "ついたち / ふつか / みっか ...", kanji: "1日 / 2日 / 3日 ...", meaning: "Ngày mồng 1, mồng 2, mồng 3..." },
+            { hiragana: "いつ", kanji: "", meaning: "Khi nào" }
+        ],
+        grammar: [
+            {
+                title: "1. N (Địa điểm) へ 行きます / 来ます / 帰ります",
+                desc: "Di chuyển đến một địa điểm nào đó (trợ từ へ đọc là 'e').",
+                examples: [
+                    "京都(きょうと)へ 行(い)きます。 (Tôi đi Kyoto.)",
+                    "どこへも 行きませんでした。 (Tôi đã không đi đâu cả.)"
+                ]
+            },
+            {
+                title: "2. N (Phương tiện) で 行きます / 来ます / 帰ります",
+                desc: "Phương tiện di chuyển. Note: Đi bộ dùng 歩いて (không dùng で).",
+                examples: ["タクシーで うちへ 帰(かえ)ります。 (Tôi về nhà bằng taxi.)"]
+            },
+            {
+                title: "3. N (Người/Con vật) と 行きます",
+                desc: "Thực hiện hành động di chuyển cùng với ai đó.",
+                examples: ["家族(かぞく)と 日本(にほん)へ 来(き)ました。 (Tôi đã đến Nhật cùng gia đình.)"]
+            }
+        ],
+        exercise: [
+            { section: "練習B - 1", content: "例: スーパーへ 行きます。<br>1) 郵便局(ゆうびんきょく)へ 行きます。<br>2) デパートへ 行きます。" },
+            { section: "練習B - 3", content: "例: 何で 京都へ 行きますか。･･･電車(でんしゃ)で 行きます。<br>1) 何で バス停(てい)へ 行きますか。･･･歩(ある)いて 行きます。" }
+        ]
+    },
+    6: {
+        vocab: [
+            { hiragana: "たべます", kanji: "食べます", meaning: "Ăn" },
+            { hiragana: "のみます", kanji: "飲みます", meaning: "Uống" },
+            { hiragana: "すいます [たばこを~]", kanji: "吸います", meaning: "Hút [thuốc]" },
+            { hiragana: "みます / ききます / よみます", kanji: "見ます / 聞きます / 読みます", meaning: "Xem / Nghe / Đọc" },
+            { hiragana: "かきます / かいます / とります", kanji: "書きます / 買います / 撮ります", meaning: "Viết / Mua / Chụp (ảnh)" },
+            { hiragana: "します", kanji: "", meaning: "Làm, thực hiện" },
+            { hiragana: "あいます [ともだちに~]", kanji: "会います", meaning: "Gặp [bạn]" },
+            { hiragana: "ごはん / あさごはん / ひるごはん / ばんごはん", kanji: "朝/昼/晩ごはん", meaning: "Cơm / Cơm sáng / Cơm trưa / Cơm tối" },
+            { hiragana: "みず / おちゃ / ビール / さけ", kanji: "水 / お茶 / 酒", meaning: "Nước / Trà / Bia / Rượu" },
+            { hiragana: "なに", kanji: "何", meaning: "Cái gì" },
+            { hiragana: "いっしょに", kanji: "", meaning: "Cùng nhau" }
+        ],
+        grammar: [
+            {
+                title: "1. N を Động từ",
+                desc: "Trợ từ を chỉ đối tượng trực tiếp của ngoại động từ.",
+                examples: ["本(ほん)を 読(よ)みます。 (Tôi đọc sách.)"]
+            },
+            {
+                title: "2. N (Địa điểm) で Động từ",
+                desc: "Hành động xảy ra tại một địa điểm cụ thể.",
+                examples: ["駅(えき)で 新聞(しんぶん)を 買(か)います。 (Tôi mua báo ở nhà ga.)"]
+            },
+            {
+                title: "3. Động từ ます-kê + ませんか",
+                desc: "Lời mời rủ ai đó cùng thực hiện hành động (lịch sự).",
+                examples: ["いっしょに 神戸(こうべ)へ 行(い)きませんか。 (Cùng đi Kobe với tôi không?)"]
+            },
+            {
+                title: "4. Động từ ます-kê + ましょう",
+                desc: "Đề xuất cùng làm gì đó (mang tính chủ động kêu gọi).",
+                examples: ["ちょっと 休(やす)みましょう。 (Chúng ta nghỉ một chút nào.)"]
+            }
+        ],
+        exercise: [
+            { section: "練習B - 1", content: "例: ラジオを 聞(き)きます。<br>1) たばこを 吸(す)います。<br>2) 手紙(てがみ)を 書(か)きます。" },
+            { section: "練習C - 3", content: "A: あした いっしょに テニスを しませんか。<br>B: ええ、いいですね。<br>A: じゃ、11時(じ)に 駅(えき)で 会(あ)いましょう。" }
+        ]
+    }
+};
+
+let currentLesson = 3;
+let currentTab = 'vocab';
+
+function switchLesson(lesson) {
+    currentLesson = lesson;
+    document.querySelectorAll('#lesson-nav .nav-btn').forEach((btn, index) => {
+        btn.classList.toggle('active', (index + 3) === lesson);
+    });
+    renderContent();
+}
+
+function switchTab(tab) {
+    currentTab = tab;
+    document.querySelectorAll('.sub-nav .sub-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('onclick').includes(tab));
+    });
+    renderContent();
+}
+
+function renderContent() {
+    const main = document.getElementById('main-content');
+    const lessonData = data[currentLesson];
+
+    if (currentTab === 'vocab') {
+        let html = `
+            <div class="content-section active">
+                <h2>Từ vựng Bài ${currentLesson}</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hiragana</th>
+                            <th>Kanji</th>
+                            <th>Ý nghĩa</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+        lessonData.vocab.forEach(item => {
+            html += `
+                <tr>
+                    <td class="japanese">${item.hiragana}</td>
+                    <td class="japanese">${item.kanji}</td>
+                    <td>${item.meaning}</td>
+                </tr>
+            `;
+        });
+        html += `</tbody></table></div>`;
+        main.innerHTML = html;
+    } else if (currentTab === 'grammar') {
+        let html = `<div class="content-section active"><h2>Ngữ pháp Bài ${currentLesson}</h2><br>`;
+        lessonData.grammar.forEach(item => {
+            html += `
+                <div class="grammar-block">
+                    <div class="grammar-title">${item.title}</div>
+                    <p style="margin-bottom: 8px;">${item.desc}</p>
+                    <ul class="example-list">
+            `;
+            item.examples.forEach(ex => {
+                html += `<li class="japanese">${ex}</li>`;
+            });
+            html += `</ul></div>`;
+        });
+        html += `</div>`;
+        main.innerHTML = html;
+    } else if (currentTab === 'exercise') {
+        let html = `<div class="content-section active"><h2>Bài tập Thực hành Bài ${currentLesson}</h2><br>`;
+        lessonData.exercise.forEach(item => {
+            html += `
+                <div class="exercise-card">
+                    <div class="exercise-title">${item.section}</div>
+                    <div class="japanese">${item.content}</div>
+                </div>
+            `;
+        });
+        html += `</div>`;
+        main.innerHTML = html;
+    }
+}
+
+// Khởi chạy ban đầu
+renderContent();
+</script>
+
+</body>
+</html>
