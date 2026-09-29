@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minna no Nihongo - Học Tiếng Nhật N5</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header / Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <div class="logo-badge">日</div>
+      <span class="logo-text">日本語 Sakura Learn</span>
+    </div>
+    <div id="userNav" class="user-nav"></div>
+  </header>
+
+  <!-- KHU VỰC KHỎI TẠO VÀ XÁC THỰC (AUTH) -->
+  <section id="authSection" class="auth-section">
+    <div class="auth-wrapper">
+      
+      <!-- FORM ĐĂNG NHẬP -->
+      <div id="loginCard" class="auth-card">
+        <div class="auth-header">
+          <div class="auth-icon">🌸</div>
+          <h2>Đăng Nhập</h2>
+          <p>Chào mừng bạn trở lại với hành trình chinh phục N5!</p>
+        </div>
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label>Tên đăng nhập</label>
+            <input type="text" id="loginUser" placeholder="Nhập username (hoặc 'demo')" value="demo" required>
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" id="loginPass" placeholder="Nhập mật khẩu (hoặc '123')" value="123" required>
+          </div>
+          <button type="submit" class="btn-primary">Đăng Nhập Ngay 🚀</button>
+        </form>
+        <div class="auth-footer">
+          <a href="#" onclick="switchAuthForm('forgot')">Quên mật khẩu?</a>
+          <span class="dot">•</span>
+          <a href="#" onclick="switchAuthForm('register')">Đăng ký tài khoản</a>
+        </div>
+      </div>
+
+      <!-- FORM ĐĂNG KÝ -->
+      <div id="registerCard" class="auth-card" style="display: none;">
+        <div class="auth-header">
+          <div class="auth-icon">📝</div>
+          <h2>Tạo Tài Khoản</h2>
+          <p>Tham gia học tập miễn phí ngay hôm nay</p>
+        </div>
+        <form onsubmit="handleRegister(event)">
+          <div class="form-group">
+            <label>Tên đăng nhập</label>
+            <input type="text" id="regUser" placeholder="Nhập tên tài khoản..." required>
+          </div>
+          <div class="form-group">
+            <label>Địa chỉ Email</label>
+            <input type="email" id="regEmail" placeholder="example@gmail.com" required>
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu</label>
+            <input type="password" id="regPass" placeholder="Tạo mật khẩu an toàn..." required>
+          </div>
+          <button type="submit" class="btn-primary">Đăng Ký & Tải Lại Trang ✨</button>
+        </form>
+        <div class="auth-footer">
+          Đã có tài khoản? <a href="#" onclick="switchAuthForm('login')">Đăng nhập</a>
+        </div>
+      </div>
+
+      <!-- FORM QUÊN MẬT KHẨU -->
+      <div id="forgotCard" class="auth-card" style="display: none;">
+        <div class="auth-header">
+          <div class="auth-icon">🔑</div>
+          <h2>Khôi Phục Mật Khẩu</h2>
+          <p>Nhập email đã đăng ký để lấy mã OTP xác nhận</p>
+        </div>
+        
+        <form id="requestOtpForm" onsubmit="sendOTP(event)">
+          <div class="form-group">
+            <label>Email đã đăng ký</label>
+            <input type="email" id="forgotEmail" placeholder="Nhập email của bạn..." required>
+          </div>
+          <button type="submit" id="sendOtpBtn" class="btn-primary">Gửi Mã Xác Nhận OTP 📩</button>
+        </form>
+
+        <form id="otpStep" style="display: none; margin-top: 1.2rem;" onsubmit="verifyOTPAndReset(event)">
+          <div class="form-group">
+            <label>Mã OTP (6 chữ số)</label>
+            <input type="text" id="otpInput" placeholder="VD: 123456" maxlength="6" required>
+          </div>
+          <div class="form-group">
+            <label>Mật khẩu mới</label>
+            <input type="password" id="newPassInput" placeholder="Nhập mật khẩu mới..." required>
+          </div>
+          <button type="submit" class="btn-primary">Xác Nhận Đổi Mật Khẩu ✅</button>
+        </form>
+
+        <div class="auth-footer">
+          <a href="#" onclick="switchAuthForm('login')"> Quay lại Đăng nhập</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KHU VỰC UNG DUNG HOC TAP (APP SECTION) -->
+  <main id="appSection" class="app-container" style="display: none;">
+    
+    <!-- Thanh Chọn Bài Học -->
+    <div class="lesson-bar-container">
+      <label for="lessonSelect" class="lesson-label">Chọn Bài Học:</label>
+      <select id="lessonSelect" class="lesson-select-dropdown" onchange="selectLesson(this.value)">
+        <!-- Dynamic Options từ JavaScript -->
+      </select>
+    </div>
+
+    <!-- Thanh Chuyển Tabs Tính Năng -->
+    <nav class="tabs-nav">
+      <button id="tab-vocabTable" class="tab-btn active" onclick="switchTab('vocabTable')">📚 Bảng Từ Vựng</button>
+      <button id="tab-flashcard" class="tab-btn" onclick="switchTab('flashcard')">🎴 Flashcard</button>
+      <button id="tab-grammar" class="tab-btn" onclick="switchTab('grammar')">📖 Ngữ Pháp</button>
+      <button id="tab-fill" class="tab-btn" onclick="switchTab('fill')">✏️ Bài Tập Đục Lỗ</button>
+      <button id="tab-quiz" class="tab-btn" onclick="switchTab('quiz')">❓ Trắc Nghiệm Quiz</button>
+      <button id="tab-dialogue" class="tab-btn" onclick="switchTab('dialogue')">💬 Hội Thoại & Đọc Hiểu</button>
+    </nav>
+
+    <!-- Nội dung hiển thị chính -->
+    <div id="tabContent" class="tab-content"></div>
+
+  </main>
+
+  <script src="data.js"></script>
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
+  <script>
+    function switchAuthForm(type) {
+      document.getElementById('loginCard').style.display = type === 'login' ? 'block' : 'none';
+      document.getElementById('registerCard').style.display = type === 'register' ? 'block' : 'none';
+      document.getElementById('forgotCard').style.display = type === 'forgot' ? 'block' : 'none';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      checkAuth();
+    });
+  </script>
+</body>
+</html>
